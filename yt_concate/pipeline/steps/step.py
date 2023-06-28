@@ -7,7 +7,7 @@ class Step(ABC):
         pass
 
     @abstractmethod
-    def process(self, data, inputs): # 隨著開發專案，再思考需要哪些參數
+    def process(self, data, inputs, utils): # 隨著開發專案，再思考需要哪些參數
         pass
 
 
