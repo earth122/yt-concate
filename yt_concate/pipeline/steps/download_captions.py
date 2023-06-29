@@ -17,22 +17,24 @@ class DownloadCaptions(Step):
             'outtmpl': '%(id)s',
         }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            for url in data:
-                print('downloading caption for', url)
-                if utils.caption_file_exists(url):
+            for yt in data:
+                print('downloading caption for', yt.id)
+                if utils.caption_file_exists(yt):
                     print('found existing caption file')
                     continue
-                ydl.download([url])
+                ydl.download([yt.url])
                 # try:
                 #
                 # except Warning:
-                #     print('WARNING was raised when downloading', url)
+                #     print('WARNING was raised when downloading', yt.url)
                 #     continue
             utils.convert_vtt_to_srt()
             utils.move_srt_files()
             utils.remove_vtt()
         end = time.time()
         print('took', end - start, 'seconds')
+
+        return data
 
     # For pytube
     # 錯誤訊息：AttributeError: 'NoneType' object has no attribute 'generate_srt_captions'
